@@ -10,6 +10,8 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.ScrollState
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,7 +27,10 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -77,74 +82,76 @@ fun HeroesList(
         modifier = modifier
     ) {
         if (isLandscape) {
-            
-            Row(modifier = Modifier.fillMaxSize()) {
-                LazyColumn(
-                    contentPadding = contentPadding,
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .padding(8.dp)
+                Row(modifier = Modifier
+                    .fillMaxSize()
+                    .horizontalScroll(rememberScrollState())
                 ) {
-                    item {
-                        Text(
-                            text = "Team 1",
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                        )
-                    }
-                    itemsIndexed(team1) { index, hero ->
-                        HeroListItem(
-                            hero = hero,
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp, vertical = 8.dp)
-                                .animateEnterExit(
-                                    enter = slideInVertically(
-                                        animationSpec = spring(
-                                            stiffness = StiffnessVeryLow,
-                                            dampingRatio = DampingRatioLowBouncy
-                                        ),
-                                        initialOffsetY = { it * (index + 1) }
+                    LazyColumn(
+                        contentPadding = contentPadding,
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                            .padding(8.dp)
+                    ) {
+                        item {
+                            Text(
+                                text = "Team 1",
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                            )
+                        }
+                        itemsIndexed(team1) { index, hero ->
+                            HeroListItem(
+                                hero = hero,
+                                modifier = Modifier
+                                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                                    .animateEnterExit(
+                                        enter = slideInVertically(
+                                            animationSpec = spring(
+                                                stiffness = StiffnessVeryLow,
+                                                dampingRatio = DampingRatioLowBouncy
+                                            ),
+                                            initialOffsetY = { it * (index + 1) }
+                                        )
                                     )
-                                )
-                        )
+                            )
+                        }
+                    }
+                    HorizontalDivider(modifier = Modifier.width(1.dp).fillMaxHeight())
+                    LazyColumn(
+                        contentPadding = contentPadding,
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                            .padding(8.dp)
+                    ) {
+                        item {
+                            Text(
+                                text = "Team 2",
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                            )
+                        }
+                        itemsIndexed(team2) { index, hero ->
+                            HeroListItem(
+                                hero = hero,
+                                modifier = Modifier
+                                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                                    .animateEnterExit(
+                                        enter = slideInVertically(
+                                            animationSpec = spring(
+                                                stiffness = StiffnessVeryLow,
+                                                dampingRatio = DampingRatioLowBouncy
+                                            ),
+                                            initialOffsetY = { it * (index + 1) }
+                                        )
+                                    )
+                            )
+                        }
                     }
                 }
-                HorizontalDivider(modifier = Modifier.width(1.dp).fillMaxHeight())
-                LazyColumn(
-                    contentPadding = contentPadding,
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .padding(8.dp)
-                ) {
-                    item {
-                        Text(
-                            text = "Team 2",
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-                        )
-                    }
-                    itemsIndexed(team2) { index, hero ->
-                        HeroListItem(
-                            hero = hero,
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp, vertical = 8.dp)
-                                .animateEnterExit(
-                                    enter = slideInVertically(
-                                        animationSpec = spring(
-                                            stiffness = StiffnessVeryLow,
-                                            dampingRatio = DampingRatioLowBouncy
-                                        ),
-                                        initialOffsetY = { it * (index + 1) }
-                                    )
-                                )
-                        )
-                    }
-                }
-            }
         }
         else {
             LazyColumn(contentPadding = contentPadding) {
