@@ -105,6 +105,10 @@ fun HeroListItem(
                     text = stringResource(hero.nameRes),
                     style = MaterialTheme.typography.bodyLarge
                 )
+                Text(
+                    text = stringResource(hero.descriptionRes),
+                    style = MaterialTheme.typography.bodyLarge
+                )
             }
             Spacer(Modifier.width(16.dp))
             Box(
