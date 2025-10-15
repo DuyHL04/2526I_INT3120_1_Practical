@@ -2,6 +2,8 @@
     <string name="app_name">Superheroes</string>
     <string name="hero1">Nick the Night and Day</string>
     <string name="description1">The Jetpack Hero</string>
+    <string name="team1">Team 1</string>
+    <string name="team2">Team 2</string>
     <string name="hero2">Reality Protector</string>
     <string name="description2">Understands the absolute truth</string>
     <string name="hero3">Andre the Giant</string>
