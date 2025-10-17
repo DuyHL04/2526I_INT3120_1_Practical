@@ -19,6 +19,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import com.example.cupcake.data.DataSource
+import com.example.cupcake.ui.SelectOptionScreen
+import com.example.cupcake.ui.StartOrderScreen
 import com.example.cupcake.ui.theme.CupcakeTheme
 
 class MainActivity : ComponentActivity() {
