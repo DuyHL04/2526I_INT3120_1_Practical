@@ -116,8 +116,14 @@ fun CupcakeApp(
                 )
             }
             composable(route = CupcakeScreen.Pickup.name) {
-                val context = LocalContext.current
-                
+                SelectOptionScreen(
+                    subtotal = uiState.price,
+                    options = uiState.pickupOptions,
+                    onSelectionChanged = { viewModel.setDate(it) },
+                    modifier = Modifier.fillMaxHeight()
+
+                )
+
             }
         }
     }
