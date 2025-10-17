@@ -42,6 +42,7 @@ import androidx.navigation.compose.composable
 import com.example.cupcake.data.DataSource
 import com.example.cupcake.ui.StartOrderScreen
 import androidx.compose.ui.platform.LocalContext
+import com.example.cupcake.ui.OrderSummaryScreen
 import com.example.cupcake.ui.SelectOptionScreen
 
 /**
@@ -121,9 +122,13 @@ fun CupcakeApp(
                     options = uiState.pickupOptions,
                     onSelectionChanged = { viewModel.setDate(it) },
                     modifier = Modifier.fillMaxHeight()
-
                 )
-
+            }
+            composable(route = CupcakeScreen.Summary.name) {
+                OrderSummaryScreen(
+                    orderUiState = uiState,
+                    modifier = Modifier.fillMaxHeight()
+                )
             }
         }
     }
