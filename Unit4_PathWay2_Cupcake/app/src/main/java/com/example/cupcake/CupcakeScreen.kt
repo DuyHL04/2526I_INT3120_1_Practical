@@ -126,7 +126,6 @@ fun CupcakeApp(
                 SelectOptionScreen(
                     subtotal = uiState.price,
                     onNextButtonClicked = {
-                        println("Navigating to Pickup from Flavor")
                         navController.navigate(CupcakeScreen.Pickup.name)
                     },
                     onCancelButtonClicked = {cancelOrderAndNavigateToStart(viewModel, navController)},
