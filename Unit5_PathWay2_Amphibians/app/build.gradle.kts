@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
 
