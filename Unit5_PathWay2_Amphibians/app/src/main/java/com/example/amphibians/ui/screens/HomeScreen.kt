@@ -67,7 +67,16 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 }
 @Composable
 fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier) {
-
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(stringResource(R.string.loading_failed))
+        Button(onClick = retryAction) {
+            Text(stringResource(R.string.retry))
+        }
+    }
 }
 @Composable
 fun AmphibianCard(amphibian: Amphibian, modifier: Modifier) {
