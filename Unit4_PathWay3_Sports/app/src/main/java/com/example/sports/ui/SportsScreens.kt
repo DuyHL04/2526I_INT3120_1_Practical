@@ -102,8 +102,34 @@ fun SportsApp(
         if (contentType == SportsContentType.ListAndDetail) {
             SportsListAndDetail(
                 sports = uiState.sportsList,
-                selected
+                selectedSport = uiState.currentSport,
+                onClick = {
+                    viewModel.updateCurrentSport(it)
+                },
+                onBackPressed = onBackPressed,
+                contentPadding = innerPadding,
+                modifier = Modifier.fillMaxWidth()
             )
+        } else {
+            if (uiState.isShowingListPage) {
+                SportsList(
+                    sports = uiState.sportsList,
+                    onClick = {
+                        viewModel.updateCurrentSport(it)
+                        viewModel.navigateToDetailPage()
+                    },
+                    modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_medium)),
+                    contentPadding = innerPadding
+                )
+            } else {
+                SportsDetail(
+                    selectedSport = uiState.currentSport,
+                    contentPadding = innerPadding,
+                    onBackPressed = {
+                        viewModel.navigateToListPage()
+                    }
+                )
+            }
         }
     }
 }
