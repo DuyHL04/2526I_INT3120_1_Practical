@@ -80,7 +80,39 @@ fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier) {
 }
 @Composable
 fun AmphibianCard(amphibian: Amphibian, modifier: Modifier) {
-
+    Card(
+        modifier = modifier,
+        shape = RoundedCornerShape(8.dp)
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = stringResource(R.string.amphibian_title, amphibian.name, amphibian.type),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(dimensionResource(R.dimen.padding_medium)),
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Start
+            )
+            AsyncImage(
+                modifier = Modifier.fillMaxWidth(),
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(amphibian.imgSrc)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = null,
+                contentScale = ContentScale.FillWidth,
+                error = painterResource(id = R.drawable.ic_broken_image),
+                placeholder = painterResource(id = R.drawable.loading_img)
+            )
+            Text(
+                text = amphibian.description,
+                style = MaterialTheme.typography.titleMedium,
+                textAlign = TextAlign.Justify,
+                modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))
+            )
+        }
+    }
 }
 @Composable
 private fun AmphibiansList(
