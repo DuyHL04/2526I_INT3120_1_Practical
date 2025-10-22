@@ -40,12 +40,30 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
-
+    when (amphibiansUiState) {
+        is AmphibiansUiState.Loading -> LoadingScreen(modifier.size(200.dp))
+        is AmphibiansUiState.Success ->
+            AmphibiansList(
+                amphibians = amphibiansUiState.amphibians,
+                modifier = modifier
+                    .padding(
+                        start = dimensionResource(R.dimen.padding_medium),
+                        top = dimensionResource(R.dimen.padding_medium),
+                        end = dimensionResource(R.dimen.padding_medium)
+                    ),
+                contentPadding = contentPadding
+            )
+        else -> ErrorScreen(retryAction, modifier)
+    }
 }
 
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
-
+    Image(
+        painter = painterResource(R.drawable.loading_img),
+        contentDescription = stringResource(R.string.loading),
+        modifier = modifier
+    )
 }
 @Composable
 fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier) {
@@ -57,7 +75,7 @@ fun AmphibianCard(amphibian: Amphibian, modifier: Modifier) {
 }
 @Composable
 private fun AmphibiansList(
-    amphibian: List<Amphibian>,
+    amphibians: List<Amphibian>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
