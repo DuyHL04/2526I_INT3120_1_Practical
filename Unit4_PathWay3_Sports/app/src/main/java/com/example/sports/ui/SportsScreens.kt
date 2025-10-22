@@ -70,6 +70,7 @@ import com.example.sports.data.LocalSportsDataProvider
 import com.example.sports.model.Sport
 import com.example.sports.ui.theme.SportsTheme
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
 import com.example.sports.utils.SportsContentType
 
 /**
@@ -98,29 +99,10 @@ fun SportsApp(
             )
         }
     ) { innerPadding ->
-        if (uiState.isShowingListPage) {
-            SportsList(
+        if (contentType == SportsContentType.ListAndDetail) {
+            SportsListAndDetail(
                 sports = uiState.sportsList,
-                onClick = {
-                    viewModel.updateCurrentSport(it)
-                    viewModel.navigateToDetailPage()
-                },
-                contentPadding = innerPadding,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        top = dimensionResource(R.dimen.padding_medium),
-                        start = dimensionResource(R.dimen.padding_medium),
-                        end = dimensionResource(R.dimen.padding_medium),
-                    )
-            )
-        } else {
-            SportsDetail(
-                selectedSport = uiState.currentSport,
-                contentPadding = innerPadding,
-                onBackPressed = {
-                    viewModel.navigateToListPage()
-                }
+                selected
             )
         }
     }
@@ -353,7 +335,12 @@ private fun SportsDetail(
 }
 @Composable
 fun SportsListAndDetail(
-
+    sports: List<Sport>,
+    selectedSport: Sport,
+    onClick: (Sport) -> Unit,
+    onBackPressed: () -> Unit,
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
 
 }
