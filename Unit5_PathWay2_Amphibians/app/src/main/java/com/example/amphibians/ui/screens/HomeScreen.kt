@@ -32,6 +32,7 @@ import coil.request.ImageRequest
 import com.example.amphibians.R
 import com.example.amphibians.model.Amphibian
 import com.example.amphibians.ui.theme.AmphibiansTheme
+import kotlin.time.Duration.Companion.nanoseconds
 
 @Composable
 fun HomeScreen(
@@ -120,7 +121,20 @@ private fun AmphibiansList(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
-
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = contentPadding,
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        items(
+            items = amphibians,
+            key = { amphibian ->
+                amphibian.name
+            }
+        ) { amphibian ->
+            AmphibianCard(amphibian = amphibian, modifier = Modifier.fillMaxSize())
+        }
+    }
 }
 @Preview(showBackground = true)
 @Composable
