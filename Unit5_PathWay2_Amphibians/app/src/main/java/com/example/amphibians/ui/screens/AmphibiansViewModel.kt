@@ -12,6 +12,7 @@ import com.example.amphibians.AmphibiansApplication
 import com.example.amphibians.data.AmphibiansRepository
 import com.example.amphibians.model.Amphibian
 import kotlinx.coroutines.launch
+import okhttp3.Call
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -21,7 +22,7 @@ sealed interface AmphibiansUiState {
     object Loading: AmphibiansUiState
 }
 
-class AmphibiansViewModel(private val amphibiansRepository: AmphibiansRepository) {
+class AmphibiansViewModel(private val amphibiansRepository: AmphibiansRepository) : ViewModel() {
     var amphibiansUiState: AmphibiansUiState by mutableStateOf(AmphibiansUiState.Loading)
         private set
     init {
@@ -36,6 +37,16 @@ class AmphibiansViewModel(private val amphibiansRepository: AmphibiansRepository
                 AmphibiansUiState.Error
             } catch (e: HttpException) {
                 AmphibiansUiState.Error
+            }
+        }
+    }
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]
+                        as AmphibiansApplication)
+                val amphibiansRepository = application.container.amphibiansRepository
+                AmphibiansViewModel(amphibiansRepository = amphibiansRepository)
             }
         }
     }
