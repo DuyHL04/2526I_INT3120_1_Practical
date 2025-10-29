@@ -16,12 +16,16 @@
 
 package com.example.waterme.worker
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.waterme.CHANNEL_ID
@@ -32,6 +36,7 @@ import com.example.waterme.R
 import com.example.waterme.REQUEST_CODE
 import com.example.waterme.VERBOSE_NOTIFICATION_CHANNEL_DESCRIPTION
 import com.example.waterme.VERBOSE_NOTIFICATION_CHANNEL_NAME
+import android.util.Log
 
 fun makePlantReminderNotification(
     message: String,
@@ -64,8 +69,18 @@ fun makePlantReminderNotification(
         .setVibrate(LongArray(0))
         .setContentIntent(pendingIntent)
         .setAutoCancel(true)
-
-    NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, builder.build())
+    val notificationManager = NotificationManagerCompat.from(context)
+    if (ActivityCompat.checkSelfPermission(
+            context,
+            Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+    ) {
+        with(notificationManager) {
+            notify(NOTIFICATION_ID, builder.build())
+        }
+    } else {
+        Log.w("WaterMe", "Chưa có quyền POST_NOTIFICATIONS — không thể gửi thông báo.")
+    }
 }
 
 fun createPendingIntent(appContext: Context): PendingIntent {
